@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>To-Do</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4" align="center">TO-DO LIST</h1>
+                <div class="text-center"><a class="btn btn-outline-success" href="{% url 'create' %}" role="button" >ADD TO-DO</a></div>
+            </div>
+        </div>
+        <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">To-Do Name</th>
+                <th scope="col">Is Finished</th>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Update</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for todo in todo_list %}
+            {% if todo.finished %}
+                <tr>
+                    <td><del>{{todo.title}}</del></td>
+                    <td>
+                        <a class="btn btn-outline-info" href = "{% url 'finish' todo.id %}" role="button">No</a>
+                    </td>
+                    <td>{{todo.date}}</td>
+                    <td>
+                        <a class="btn btn-outline-danger" href = "{% url 'delete' todo.id %}" role="button">Delete</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-warning" href = "{% url 'update' todo.id %}" role="button">Update</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{todo.title}}</td>
+                    <td>
+                        <a class="btn btn-outline-info" href = "{% url 'nofinish' todo.id %}" role="button"> Yes </a>
+                    </td>
+                    <td>{{todo.date}}</td>
+                    <td>
+                        <a class="btn btn-outline-danger" href = "{% url 'delete' todo.id %}" role="button">Delete</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-warning" href = "{% url 'update' todo.id %}" role="button">Update</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
